@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cloud WAF Simulation | Web Application Firewall</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <header>
+      <h1>🛡️ Cloud WAF Simulation</h1>
+      <p>Web Application Firewall • Real-time threat blocking</p>
+    </header>
+
+    <div class="dashboard">
+      <!-- Stats Panel -->
+      <div class="stats-panel">
+        <div class="stat-card">
+          <div class="stat-label">Total Requests</div>
+          <div class="stat-value" id="totalRequests">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Blocked</div>
+          <div class="stat-value" id="blockedCount">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Security Score</div>
+          <div class="stat-value" id="securityScore">100</div>
+        </div>
+      </div>
+
+      <!-- Rules Configuration -->
+      <div class="rules-panel">
+        <h3>⚙️ WAF Rules (Toggle to enable/disable)</h3>
+        <div class="rules-list">
+          <label><input type="checkbox" id="ruleSQL" checked> Block SQL Injection</label>
+          <label><input type="checkbox" id="ruleXSS" checked> Block XSS (Cross-site Scripting)</label>
+          <label><input type="checkbox" id="rulePathTraversal" checked> Block Path Traversal (../)</label>
+          <label><input type="checkbox" id="ruleBadBot" checked> Block Bad Bots (known patterns)</label>
+        </div>
+      </div>
+
+      <!-- Request Simulator -->
+      <div class="simulator-panel">
+        <h3>📡 Simulate HTTP Request</h3>
+        <div class="request-input">
+          <input type="text" id="requestUrl" placeholder="e.g., /products?id=1 OR 1=1" value="/search?q=hello">
+          <button id="sendRequestBtn">Send Request</button>
+        </div>
+        <div class="preset-buttons">
+          <button class="preset" data-url="/user?id=1' OR '1'='1">🔓 SQL Injection</button>
+          <button class="preset" data-url="/comment?msg=<script>alert(1)</script>">⚠️ XSS Attack</button>
+          <button class="preset" data-url="/admin/../../etc/passwd">📁 Path Traversal</button>
+          <button class="preset" data-url="/api/data?param=normal">✅ Normal Request</button>
+        </div>
+      </div>
+
+      <!-- Live Logs -->
+      <div class="logs-panel">
+        <h3>📜 WAF Event Logs</h3>
+        <div class="log-filters">
+          <button id="filterAll" class="active">All</button>
+          <button id="filterBlocked">Blocked</button>
+          <button id="filterAllowed">Allowed</button>
+          <button id="clearLogs">Clear Logs</button>
+        </div>
+        <div id="logList" class="log-list">
+          <div class="log-entry info">🟢 WAF active — ready to block threats</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
